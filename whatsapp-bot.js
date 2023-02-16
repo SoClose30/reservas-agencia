@@ -4,6 +4,7 @@ const { botMessaging } = require('./helpers/botMessaging');
 const { googleSheetsQueries } = require('./helpers/googleSheetsQueries');
 const { googleAuth } = require('./googleAuth');
 const express = require('express');
+const cors = require('cors');
 
 const wsclient = new Client({
 	authStrategy: new LocalAuth(),
@@ -13,6 +14,8 @@ const initializeClient = async () => {
 	//wsclient.on('qr', (qr) => console.log(QrGenerator.generate(qr, { small: true })));
 
 	const app = express();
+
+	app.use(cors());
 
 	const PORT = process.env.PORT || 3000;
 

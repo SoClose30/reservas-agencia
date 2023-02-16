@@ -4,7 +4,7 @@
 	"description": "Programa para hacer reservas a través de WhatsApp",
 	"main": "whatsapp-bot",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "node whatsapp-bot.js"
 	},
 	"author": "Emmanuel Salvo",
 	"license": "ISC",

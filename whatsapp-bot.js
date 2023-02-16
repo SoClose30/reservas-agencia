@@ -1,5 +1,5 @@
 const { Client, LocalAuth, Buttons } = require('whatsapp-web.js');
-const QrGenerator = require('qrcode-terminal');
+const QrGenerator = require('qrcode-output');
 const { botMessaging } = require('./helpers/botMessaging');
 const { googleSheetsQueries } = require('./helpers/googleSheetsQueries');
 const { googleAuth } = require('./googleAuth');

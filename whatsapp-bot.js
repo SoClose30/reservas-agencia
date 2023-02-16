@@ -6,9 +6,7 @@ const { googleAuth } = require('./googleAuth');
 const express = require('express');
 const cors = require('cors');
 
-const wsclient = new Client({
-	authStrategy: new LocalAuth(),
-});
+const wsclient = new Client();
 
 const initializeClient = async () => {
 	//wsclient.on('qr', (qr) => console.log(QrGenerator.generate(qr, { small: true })));

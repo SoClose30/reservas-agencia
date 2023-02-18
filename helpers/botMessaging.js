@@ -10,7 +10,7 @@ const botMessaging = async (whatsAppClient, Buttons, sheets, Reservas) => {
 		const incomingClient = await message.getContact();
 		const incomingClientChat = await message.getChat();
 
-		if (!incomingClientChat.isGroup && incomingClient.number === '5491121844990') {
+		if (!incomingClientChat.isGroup) {
 			let correctAnswer = false;
 			let contactOnDB = contactsDB.find((item) => item.contactNumber === incomingClient.number);
 			if (!contactOnDB || upperCasedMessage === 'MENU' || upperCasedMessage === 'MENÚ') {
@@ -37,11 +37,13 @@ const botMessaging = async (whatsAppClient, Buttons, sheets, Reservas) => {
 								message.from,
 								'_Para modificar una reserva, debe comunicarse con el administrador._\n\n_Para volver al menú principal, digite la palabra *menú*._'
 							);
+							contactOnDB.step = 5;
 							break;
 						}
 						case 'CONSULTAR UNA RESERVA': {
 							const { booking } = searchBooking(incomingClient.number, Reservas, date);
 							await whatsAppClient.sendMessage(message.from, booking);
+							contactOnDB.step = 5;
 							break;
 						}
 						default:

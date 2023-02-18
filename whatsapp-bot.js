@@ -1,17 +1,23 @@
-const { Client, LocalAuth, Buttons } = require('whatsapp-web.js');
-const QrGenerator = require('qrcode-output');
+const { Client, Buttons, LocalAuth } = require('whatsapp-web.js');
+const QrGenerator = require('qrcode-terminal');
 const { botMessaging } = require('./helpers/botMessaging');
 const { googleSheetsQueries } = require('./helpers/googleSheetsQueries');
 const { googleAuth } = require('./googleAuth');
 const express = require('express');
 const cors = require('cors');
 
-const wsclient = new Client();
+const wsclient = new Client({
+	puppeteer: {
+		headless: true,
+		executablePath: './chromium/chrome.exe',
+	},
+	authStrategy: new LocalAuth(),
+});
 
 const initializeClient = async () => {
 	//wsclient.on('qr', (qr) => console.log(QrGenerator.generate(qr, { small: true })));
 
-	const app = express();
+	/*const app = express();
 
 	app.use(cors());
 
@@ -30,14 +36,10 @@ const initializeClient = async () => {
 		} else {
 			res.send('Sesión activa');
 		}
-	});
+	});*/
 	wsclient.on('qr', (qr) => {
-		qrCode = QrGenerator.generate(qr, { small: true });
-	});
-
-	wsclient.on('disconnected', async () => {
-		isLoggedIn = false;
-		await wsclient.initialize();
+		console.log('*| Generando QR');
+		QrGenerator.generate(qr, { small: true });
 	});
 
 	wsclient.on('ready', async () => {
@@ -45,12 +47,10 @@ const initializeClient = async () => {
 
 		const { Reservas } = await googleSheetsQueries(sheets, auth);
 
-		isLoggedIn = true;
-
 		botMessaging(wsclient, Buttons, sheets, Reservas);
+		console.log('*| Cliente inicializado');
 	});
 	await wsclient.initialize();
-	console.log('Cliente inicializado');
 };
 
 initializeClient();

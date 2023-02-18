@@ -35,7 +35,7 @@ const botMessaging = async (whatsAppClient, Buttons, sheets, Reservas) => {
 						case 'MODIFICAR UNA RESERVA': {
 							await whatsAppClient.sendMessage(
 								message.from,
-								'_Para modificar una reserva, debe comunicarse con el administrador._\n\n_Para volver al menú principal, digite la palabra *menú*._'
+								'_Para modificar una reserva, podés comunicarte a los siguientes números:_\n\n*María:* https://wa.me/5491135796910/ \n*Vivi:* https://wa.me/5491157370618/ \n\n_Para volver al menú principal, digite la palabra *menú*._'
 							);
 							contactOnDB.step = 5;
 							break;
@@ -89,35 +89,41 @@ const botMessaging = async (whatsAppClient, Buttons, sheets, Reservas) => {
 						}
 						case 5: {
 							contactOnDB.booking.push(message.body);
-							await whatsAppClient.sendMessage(message.from, '_¿Cuántos pax? (*aclarar cuantos adultos, menores e infantes*)_');
+							await whatsAppClient.sendMessage(message.from, '_¿Cuál es el nombre del pax?_');
 							contactOnDB.bookingStep += 1;
 							break;
 						}
 						case 6: {
 							contactOnDB.booking.push(message.body);
-							await whatsAppClient.sendMessage(message.from, '_¿Cuál es el idioma?_');
+							await whatsAppClient.sendMessage(message.from, '_¿Cuántos pax? (*aclarar cuantos adultos, menores e infantes*)_');
 							contactOnDB.bookingStep += 1;
 							break;
 						}
 						case 7: {
 							contactOnDB.booking.push(message.body);
-							await whatsAppClient.sendMessage(message.from, '_¿Cuál es el WhatsApp del pasajero?_');
+							await whatsAppClient.sendMessage(message.from, '_¿Cuál es el idioma?_');
 							contactOnDB.bookingStep += 1;
 							break;
 						}
 						case 8: {
 							contactOnDB.booking.push(message.body);
-							await whatsAppClient.sendMessage(message.from, '_¿Cuál es el medio de pago?_');
+							await whatsAppClient.sendMessage(message.from, '_¿Cuál es el WhatsApp del pasajero?_');
 							contactOnDB.bookingStep += 1;
 							break;
 						}
 						case 9: {
 							contactOnDB.booking.push(message.body);
-							await whatsAppClient.sendMessage(message.from, '_¿Observaciones? (ejemplo: discapacidad)_');
+							await whatsAppClient.sendMessage(message.from, '_¿Cuál es el medio de pago?_');
 							contactOnDB.bookingStep += 1;
 							break;
 						}
 						case 10: {
+							contactOnDB.booking.push(message.body);
+							await whatsAppClient.sendMessage(message.from, '_¿Observaciones? (ejemplo: discapacidad)_');
+							contactOnDB.bookingStep += 1;
+							break;
+						}
+						case 11: {
 							contactOnDB.booking.push(message.body);
 							const formattedBooking = contactOnDB.booking.join('\n');
 							const bookingConfirmation = new Buttons(`_¿Son los datos correctos?_\n\n${formattedBooking}`, [{ body: 'Sí, aceptar' }, { body: 'No, cambiar' }]);
@@ -125,7 +131,7 @@ const botMessaging = async (whatsAppClient, Buttons, sheets, Reservas) => {
 							contactOnDB.bookingStep += 1;
 							break;
 						}
-						case 11: {
+						case 12: {
 							if (upperCasedMessage === 'SÍ, ACEPTAR') {
 								contactOnDB.isBooking = false;
 								const { isBooked } = await saveBooking(contactOnDB.booking, Reservas, sheets, incomingClient.number, date);

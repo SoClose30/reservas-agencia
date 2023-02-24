@@ -6,10 +6,8 @@ const searchBooking = (clientId, Reservas) => {
 	let bookings = [];
 
 	for (let clientIndex = 0; clientIndex < Reservas.length; clientIndex++) {
-		if (
-			Reservas[clientIndex][1] === clientId &&
-			(timeParser(date, Reservas[clientIndex][5]).result === 'antes de la reserva' || timeParser(date, Reservas[clientIndex][5]).result === 'es el mismo día')
-		) {
+		const { result } = timeParser(date, Reservas[clientIndex][5]);
+		if (Reservas[clientIndex][1] === clientId && (result === 'antes de la reserva' || result === 'es el mismo día')) {
 			bookings.push([Reservas[clientIndex][4], Reservas[clientIndex][5]]);
 		}
 	}

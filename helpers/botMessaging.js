@@ -35,7 +35,7 @@ const botMessaging = async (whatsAppClient, Buttons, sheets, Reservas) => {
 						case 'MODIFICAR UNA RESERVA': {
 							await whatsAppClient.sendMessage(
 								message.from,
-								'_Para modificar una reserva, podés comunicarte a los siguientes números:_\n\n*María:* https://wa.me/5491135796910/ \n*Vivi:* https://wa.me/5491157370618/ \n\n_Para volver al menú principal, digite la palabra *menú*._'
+								'_Para modificar una reserva, podés comunicarte a los siguientes números:_\n\n*María:* https://wa.me/5491135796910/ \n*Vivi:* https://wa.me/5491157370618/ \n*Yamila:* https://wa.me/5491156951469/ \n\n_Para volver al menú principal, digite la palabra *menú*._'
 							);
 							contactOnDB.step = 5;
 							break;

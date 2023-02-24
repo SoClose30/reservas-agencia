@@ -1,6 +1,7 @@
 const { timeParser } = require('./timeParser');
 
-const searchBooking = (clientId, Reservas, date) => {
+const searchBooking = (clientId, Reservas) => {
+	const date = new Date().toLocaleDateString('es-AR');
 	let booking = '_Usted no tiene una reserva, para hacerla, digite *menu* y luego *hacer una reserva*._';
 	let bookings = [];
 
@@ -10,7 +11,6 @@ const searchBooking = (clientId, Reservas, date) => {
 			(timeParser(date, Reservas[clientIndex][5]).result === 'antes de la reserva' || timeParser(date, Reservas[clientIndex][5]).result === 'es el mismo día')
 		) {
 			bookings.push([Reservas[clientIndex][4], Reservas[clientIndex][5]]);
-			break;
 		}
 	}
 

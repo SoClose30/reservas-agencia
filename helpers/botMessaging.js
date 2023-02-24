@@ -41,7 +41,7 @@ const botMessaging = async (whatsAppClient, Buttons, sheets, Reservas) => {
 							break;
 						}
 						case 'CONSULTAR UNA RESERVA': {
-							const { booking } = searchBooking(incomingClient.number, Reservas, date);
+							const { booking } = searchBooking(incomingClient.number, Reservas);
 							await whatsAppClient.sendMessage(message.from, booking);
 							contactOnDB.step = 5;
 							break;

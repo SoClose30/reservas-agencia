@@ -6,7 +6,7 @@ const timeParser = (actualDate, dateToCompare) => {
 	let monthisGreater = false;
 	let yearIsGreater = false;
 
-	let result = 'Es el mismo día';
+	let result = 'es el mismo día';
 
 	if (Number(splittedActualDate[0]) > Number(splittedDateToCompare[0])) {
 		dayIsGreater = true;
